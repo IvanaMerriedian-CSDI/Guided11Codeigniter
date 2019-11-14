@@ -1,15 +1,16 @@
 <?php 
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class serModel extends CI_Model
+class branchesModel extends CI_Model
 {
-    private$table='users';
+    private$table='branches';
     
     
     public$id;
     public$name;
-    public$email;
-    public$password;
+    public$address;
+    public$phoneNumber;
+    public$created_at;
     public$rule=[
         [
             'field'=>'name',
@@ -20,19 +21,20 @@ class serModel extends CI_Model
     public function Rules() { return$this->rule; }
     
     public function getAll() { return
-        $this->db->get('data_mahasiswa')->result();
+        $this->db->get('branches')->result();
     }
     public function store($request) {
         $this->name=$request->name;
-        $this->email=$request->email;
-        $this->password=password_hash($request->password,PASSWORD_BCRYPT);
+        $this->address=$request->address;
+        $this->phoneNumber=$request->phoneNumber;
+        $this->created_at=$request->created_at;
         if($this->db->insert($this->table,$this)){ 
             return['msg'=>'Berhasil','error'=>false];
         }
         return['msg'=>'Gagal','error'=>true];
     }
     public function update($request,$id) {
-        $updateData=['email'=>$request->email,'name'=>$request->name];
+        $updateData=['merk'=>$request->merk,'merk'=>$request->name];
         if($this->db->where('id',$id)->update($this->table,$updateData)){ 
             return['msg'=>'Berhasil','error'=>false];
         }
